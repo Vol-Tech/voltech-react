@@ -1,12 +1,26 @@
-const conexionBD = require('../config/db');
+const productoModel = require('../models/producto.model');
 
-// aca va la logica de negocio
+const obtenerProductosIva = async () => {
+    const productos = await productoModel.obtenerTodosProductos();
+    const iva = 0.19;
 
-const obtenerTodosProductos = async () => {
-    const query = 'SELECT * FROM productos ORDER BY id ASC';
-    const resultado = await conexionBD.query(query);
+    const formatearPrecio = productos.map(producto => {
+        const precioBase = parseFloat(producto.precio);
+        const precioConIva = precioBase * iva;
 
-    return resultado.rows;
+        return {
+            ...producto,
+            precioNeto: precioBase,
+            iva: Math.round(precioConIva),
+            precioTotal: Math.round(precioBase + precioConIva)
+        };
+    });
+
+    if (productos.length === 0) {
+        throw new Error("Actualmente no hay productos en la tienda");
+    }
+
+    return formatearPrecio;
 };
 
-module.exports = { obtenerTodosProductos };
+module.exports = { obtenerProductosIva };
