@@ -1,0 +1,243 @@
+@import "header.css";
+@import "footer.css";
+
+/* PARTE RENATO */
+
+/* css del contacto */
+
+.main-contacto {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    min-height: 80vh;
+    padding: 3rem;
+}
+
+.main-contacto h1 {
+    text-align: center;
+    margin-bottom: 1.2rem;
+}
+
+.main-contacto img {
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+}
+
+/* fin del css del contacto */
+
+.titulo-index {
+    text-align: center;
+}
+
+.titulo-index h3 {
+    color: #039e0b;
+}
+
+.blog-tarjeta {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: #adadff;
+
+    margin: 2.3rem;
+
+    padding: 4rem;
+    gap: 2rem;
+}
+
+.blog-imagen img {
+    width: 92%;
+    max-width: 500px;
+    object-fit: cover;
+
+    border: 1.5px solid #4d4a8f6b;
+}
+
+.titulo-blogs {
+    text-align: center;
+
+    margin-top: 2.4rem;
+    margin-bottom: 2.4rem;
+
+    color: #1E2038;
+    font-size: 2.5rem;
+}
+
+.nosotros-descripcion button {
+    color: #FFFFFF;
+    background-color: #4F46E5;
+    padding: 10px 18px;
+    border-radius: 1.5px;
+
+    margin-top: 2rem;
+    border: none;
+    cursor: pointer;
+}
+
+.nosotros-descripcion button:hover {
+    background-color: #2E2A88;
+    color: #FFFFFF;
+}
+
+.blog-tarjeta h3 {
+    font-size: 1.7rem;
+    margin-bottom: 9%;
+}
+
+/* Css reutilizado del Ignacio al mio al Index*/
+.index-desc {
+    width: 45%;
+    text-align: left;
+}
+
+.index-contenedor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: #EEF2FF;
+    border: 1.5px solid #C7D2FE;
+
+    margin: 2.3rem;
+    margin-left: 4.5rem;
+    margin-right: 4.5rem;
+
+    padding: 4rem;
+    gap: 2rem;
+}
+
+.index-contenedor p {
+    font-size: 1.4rem;
+}
+
+.index-contenedor h2 {
+    font-size: 1.8rem;
+    margin-bottom: 3.4%;
+}
+
+.index-imagen img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+}
+
+.producto-oferta {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 1rem;
+    background-color: #e5fde7;
+    border: 1.5px solid #b9e7ba;
+    transition: border-color 0.2s ease;
+    border-radius: 8px;
+
+    text-align: center;
+
+    width: 280px;
+}
+
+.producto-oferta img {
+    display: block;
+
+    width: 100%;
+    max-width: 250px;
+    height: 200px;
+
+    object-fit: cover;
+
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
+
+.producto-oferta a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+}
+
+.producto-oferta button {
+    color: #FFFFFF;
+    background-color: #00C853;
+    padding: 3px 10px;
+    border-radius: 1.5px;
+
+    border: none;
+    cursor: pointer;
+}
+
+.producto-oferta button:hover {
+    background-color: #039e43;
+    color: #FFFFFF;
+
+    padding: 3px 10px;
+    border-radius: 1.5px;
+    transition: background-color 0.2s ease;
+
+    border: none;
+    cursor: pointer;
+}
+
+.producto-oferta:hover {
+    border: 1.5px solid #09b852;
+}
+
+@media (max-width: 768px) {
+    .main-contacto {
+        padding: 1.5rem;
+    }
+
+    .index-contenedor {
+        flex-direction: column;
+        margin: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .index-desc {
+        width: 100%;
+        text-align: center;
+    }
+
+    .index-desc h2 {
+        font-size: 1.5rem;
+    }
+
+    .index-desc p {
+        font-size: 1.1rem;
+    }
+
+    .blog-tarjeta {
+        flex-direction: column;
+        margin: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .blog-tarjeta h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .blog-imagen img {
+        width: 100%;
+    }
+
+    .titulo-blogs {
+        font-size: 1.8rem;
+        margin: 1.5rem 0;
+    }
+
+    .producto-oferta {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}

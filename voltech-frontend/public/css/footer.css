@@ -1,0 +1,142 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+.foot-container {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 -2px 8px rgba(30, 27, 75, 0.05);
+    gap: 2rem;
+    padding: 1.5rem 2rem;
+    margin-top: auto;
+    background-color: #FFFFFF;
+    border-top: 1px solid #EEF2FF;
+}
+
+.foot-info {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.foot-info ul {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    align-items: center;
+    list-style: none;
+    gap: 2rem;
+}
+
+.foot-info ul li:last-child {
+    margin-left: auto;
+    margin-right: 2rem;
+}
+
+.foot-info a {
+    color: #475569;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.foot-info a:hover {
+    color: #6366F1;
+}
+
+.foot-info p {
+    color: #475569;
+}
+
+.foot-tab {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.foot-tab ul {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    align-items: center;
+    list-style: none;
+    gap: 2rem;
+}
+
+.foot-tab ul li:last-child {
+    margin-left: auto;
+    margin-right: 2rem;
+}
+
+.foot-tab input {
+    border: 1px solid #C7D2FE;
+    padding: 6px 12px;
+    border-radius: 4px;
+    outline: none;
+}
+
+.foot-tab input:focus {
+    border-color: #6366F1;
+}
+
+.foot-tab button {
+    background-color: #6366F1;
+    color: #FFFFFF;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.foot-tab button:hover {
+    background-color: #4338CA;
+}
+
+.icono-visa::before {
+    font-family: "bootstrap-icons";
+    font-style: normal;
+    font-size: 1.5rem;
+    content: "\F2DB";
+    color: #6366F1;
+}
+
+@media (max-width: 768px) {
+    .foot-container {
+        padding: 1.5rem 1rem;
+        text-align: center;
+    }
+
+    .foot-info ul {
+        flex-direction: column; 
+        padding-left: 0;
+        gap: 1rem;
+    }
+
+    .foot-info ul li:last-child,
+    .foot-tab ul li:last-child {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .foot-tab ul {
+        flex-wrap: wrap; 
+        justify-content: center;
+        padding-left: 0;
+    }
+
+    .foot-tab ul li:last-child {
+        width: 100%; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .foot-tab ul li:last-child input,
+    .foot-tab ul li:last-child button {
+        width: 100%;
+        max-width: 300px;
+        padding: 0.5rem;
+        box-sizing: border-box;
+    }
+}
