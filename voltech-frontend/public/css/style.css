@@ -14,14 +14,32 @@ body {
 
 .carousel-item p {
   font-size: 21px;
+  color: #d3b8fc;
+  text-shadow: 2px 1.3px 2px #371e38cb;
+
+}
+
+.carousel-item h3 {
+  color: #dfcbfc;
+  text-shadow: 2px 1.3px 2px #371e38cb;
 }
 
 .carousel .carousel-item {
   transition: transform 0.5s ease-in-out;
 }
 
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  width: 2.2rem;
+  height: 1.8rem;
+}
+
 .carousel {
   margin-bottom: 45px;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: #503b70 !important;
 }
 
 /* final de css del carrusel*/
