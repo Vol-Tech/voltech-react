@@ -1,6 +1,6 @@
-const productoModel = require('../models/producto.model');
+import productoModel from '../models/producto.model.js';
 
-const obtenerProductosIva = async () => {
+export const obtenerProductosIva = async () => {
     const productos = await productoModel.obtenerTodosProductos();
     const iva = 0.19;
 
@@ -22,5 +22,3 @@ const obtenerProductosIva = async () => {
 
     return formatearPrecio;
 };
-
-module.exports = { obtenerProductosIva };
