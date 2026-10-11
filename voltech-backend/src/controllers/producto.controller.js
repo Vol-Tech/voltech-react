@@ -1,4 +1,4 @@
-import { obtenerProductosIva } from '../services/producto.service';
+import { obtenerProductosIva } from '../services/producto.service.js';
 
 export const obtenerProductos = async (req, res) => {
     try {
