@@ -9,34 +9,7 @@ import CarouselHome from '../components/CarouselHome'
 export default function Home() {
   return (
     <main>
-      <div className="index-contenedor">
-        <div className="index-desc">
-          <h2>Tienda Tecnologica VolTech</h2>
-          <p>
-            Nos encargamos de tener lo mas actualizado de hoy
-            para todo lo que necesites y junto a unas buenas ofertas
-            que te daremos por esta semana del 18 al ser una tienda
-            original de Chile
-          </p>
-        </div>
-      </div>
       <CarouselHome />
-      {/* 
-      <div className="index-contenedor">
-        <div className="index-desc">
-          <h2>Tienda Tecnologica VolTech</h2>
-          <p>
-            Nos encargamos de tener lo mas actualizado de hoy
-            para todo lo que necesites y junto a unas buenas ofertas
-            que te daremos por esta semana del 18 al ser una tienda
-            original de Chile
-          </p>
-        </div>
-        <div className="index-imagen">
-          <img src="/img/Banner Index.png" alt="Banner del Index" />
-        </div>
-      </div>
-        */}
       <div className="titulo-index">
         <h1>Producto Destacado</h1>
         <h3>OFERTA</h3>
