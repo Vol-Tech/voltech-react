@@ -2,6 +2,11 @@ import productoModel from '../models/producto.model.js';
 
 export const obtenerProductosIva = async () => {
     const productos = await productoModel.obtenerTodosProductos();
+
+    if (productos.length === 0) {
+        throw new Error("Actualmente no hay productos en la tienda");
+    }
+
     const iva = 0.19;
 
     const formatearPrecio = productos.map(producto => {
@@ -15,10 +20,6 @@ export const obtenerProductosIva = async () => {
             precioTotal: Math.round(precioBase + precioConIva)
         };
     });
-
-    if (productos.length === 0) {
-        throw new Error("Actualmente no hay productos en la tienda");
-    }
 
     return formatearPrecio;
 };
