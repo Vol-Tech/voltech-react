@@ -1,8 +1,8 @@
-require('dotenv').config();
+import 'dotenv/config';
+import pg from 'pg';
 
 // aca va la config global y conexiones a otro servicios externos
-
-const { Pool } = require('pg');
+const { Pool } = pg;
 
 const conexionBD = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -11,4 +11,4 @@ const conexionBD = new Pool({
     }
 });
 
-module.exports = conexionBD;
+export default conexionBD;
