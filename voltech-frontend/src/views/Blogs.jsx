@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 export default function Blogs() {
   return (
     <main>
@@ -12,7 +13,9 @@ export default function Blogs() {
             elimina el desenfoque de movimiento, reduciendo el lag y mejorando tus
             reflejos en partidas competitivas.
           </p>
-          <button>VER CASO</button>
+          <Link to="/blogs/monitor-gamer">
+            <button>VER CASO</button>
+          </Link>
         </div>
         <div className="blog-imagen">
           <img src="img/Monitor Gamer.png" alt="Monitor Gamer Blog" />
@@ -27,7 +30,9 @@ export default function Blogs() {
             el amperaje correcto en tus cables Tipo-C para proteger la batería de tus
             equipos sin perder rendimiento.
           </p>
-          <button>VER CASO</button>
+          <Link to="/blogs/cable-tipo-c">
+            <button>VER CASO</button>
+          </Link>
         </div>
         <div className="blog-imagen">
           <img src="img/Cable tipo C.png" alt="Cable tipo C Blog" />
@@ -42,7 +47,9 @@ export default function Blogs() {
             siendo el rey indiscutido de la estabilidad en proyectores universitarios,
             monitores secundarios y servidores.
           </p>
-          <button>VER CASO</button>
+          <Link to="/blogs/cable-vga">
+            <button>VER CASO</button>
+          </Link>
         </div>
         <div className="blog-imagen">
           <img src="img/Cable Vga.png" alt="Cable VGA" />
@@ -57,7 +64,9 @@ export default function Blogs() {
             los sensores opticos de la linea de ratones VolTech y como ajustar la sensibilidad
             segun tu estilo de juego.
           </p>
-          <button>VER CASO</button>
+          <Link to="/blogs/mouse-gamer">
+            <button>VER CASO</button>
+          </Link>
         </div>
         <div className="blog-imagen">
           <img src="img/Mouse Gamer.png" alt="Mouse Gamer Blog" />
