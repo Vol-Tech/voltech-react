@@ -114,6 +114,13 @@ export const creacionUsuario = async (req, res) => {
             });
         }
 
+        if (error.message.includes("El correo debe terminar en")) {
+            return res.status(400).json({
+                exito: false,
+                mensaje: error.message
+            });
+        }
+
         if (error.message.includes("ya esta registrado")) {
             return res.status(409).json({
                 exito: false,
