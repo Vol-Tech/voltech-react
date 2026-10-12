@@ -59,6 +59,14 @@ export const agregarUsuario = async (nuevoUsuario) => {
     }
 
     const emailFormateado = nuevoUsuario.email.trim();
+
+    const dominiosPermitidos = ['@duoc.cl', '@profesor.duoc.cl', '@gmail.com'];
+    const esDominioValido = dominiosPermitidos.some(dominio => emailFormateado.endsWith(dominio));
+
+    if (!esDominioValido) {
+        throw new Error("El correo debe terminar en @duoc.cl, @profesor.duoc.cl o @gmail.com");
+    }
+
     const usuarioExiste = await usuarioModel.obtenerUsuarioEmail(emailFormateado);
 
     if (usuarioExiste) {
