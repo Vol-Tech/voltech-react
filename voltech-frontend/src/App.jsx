@@ -9,6 +9,11 @@ import Contacto from './views/Contacto'
 import Login from './views/Login'
 import Registro from './views/Registro'
 
+import BlogMonitor from './views/BlogMonitor'
+import BlogCableTipoC from './views/BlogCableTipoC'
+import BlogCableVga from './views/BlogCableVga'
+import BlogMouse from './views/BlogMouse'
+
 function App() {
   return (
     <>
@@ -21,6 +26,10 @@ function App() {
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/blogs/monitor-gamer" element={<BlogMonitor />} />
+        <Route path="/blogs/cable-tipo-c" element={<BlogCableTipoC />} />
+        <Route path="/blogs/cable-vga" element={<BlogCableVga />} />
+        <Route path="/blogs/mouse-gamer" element={<BlogMouse />} />
       </Routes>
       <Footer />
     </>
