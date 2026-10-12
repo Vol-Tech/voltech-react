@@ -54,7 +54,7 @@ export const agregarUsuario = async (nuevoUsuario) => {
         throw new Error("El usuario debe tener un email de forma obligatoria");
     }
 
-    if (nuevoUsuario.contrasena || nuevoUsuario.contrasena.trim() === "") {
+    if (!nuevoUsuario.contrasena || nuevoUsuario.contrasena.trim() === "") {
         throw new Error("El usuario debe tener una contraseña de forma obligatoria");
     }
 
