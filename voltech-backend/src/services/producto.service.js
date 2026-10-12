@@ -37,9 +37,9 @@ export const agregarProducto = async (nuevoProd) => {
 
     const productoACrear = {
         nombre: nuevoProd.nombre.trim(),
-        descripcion: nuevoProd.descripcion,
+        descripcion: nuevoProd.descripcion ? nuevoProd.descripcion.trim() : "",
         precio: parseFloat(nuevoProd.precio),
-        stock: nuevoProd.stock,
+        stock: nuevoProd.stock ? parseInt(nuevoProd.stock) : 0,
         imagen_url: nuevoProd.imagen_url,
         categoria: nuevoProd.categoria
     };
