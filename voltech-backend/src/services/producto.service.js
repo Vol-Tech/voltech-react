@@ -1,4 +1,3 @@
-import conexionBD from '../config/db.js';
 import productoModel from '../models/producto.model.js';
 
 export const obtenerProductosIva = async () => {
@@ -53,7 +52,7 @@ export const obtenerProdCriticos = async () => {
 export const agregarProducto = async (nuevoProd) => {
 
     if (!nuevoProd.nombre || nuevoProd.nombre.trim() === "") {
-        throw new Error("El producto debe tener un nombre");
+        throw new Error("El producto debe tener un nombre de forma obligatoria");
     }
 
     if (nuevoProd.precio === undefined || nuevoProd.precio <= 0) {
@@ -85,7 +84,7 @@ export const modificarProducto = async (id, datosProducto) => {
     }
 
     if (datosProducto.precio === undefined || datosProducto.precio <= 0) {
-        throw new Error("EL producto debe tener un precio y debe ser mayor a 0 para ser actualizado");
+        throw new Error("El producto debe tener un precio y debe ser mayor a 0 para ser actualizado");
     }
 
     const productoAModificar = {
