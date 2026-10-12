@@ -10,11 +10,6 @@ export default function Footer() {
             <li><a href="#">Categoria Y</a></li>
             <li><a href="#">Categoria Z</a></li>
             <li><p>Estamos en Contacto!</p></li>
-            <li>
-              <Link to="/admin/usuarios" className="link-admin">
-                Panel Admin
-              </Link>
-            </li>
           </ul>
         </div>
 
