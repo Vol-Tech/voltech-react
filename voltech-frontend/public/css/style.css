@@ -40,6 +40,7 @@ body {
 .carousel-indicators [data-bs-target] {
   background-color: #503b70 !important;
 }
+
 /* final de css del carrusel */
 
 .producto-contenedor {
@@ -160,6 +161,7 @@ body {
 .form-container h4 {
   text-align: left;
   color: #1E1B4B;
+  font-size: 1.2rem;
 }
 
 .form-container input {
@@ -181,6 +183,8 @@ body {
   border-radius: 4px;
   border: none;
   cursor: pointer;
+
+  margin-top: 1.2rem;
 }
 
 .form-container button:hover {
@@ -228,7 +232,7 @@ body {
 .nosotros-container {
   display: flex;
   flex-direction: row;
-  gap: 3rem;
+  gap: 4rem;
   width: 90%;
   max-width: 1000px;
   background-color: #EEF2FF;
@@ -236,6 +240,8 @@ body {
   margin: 4rem auto;
   padding: 3rem;
   border-radius: 12px;
+  margin-top: 0rem;
+  margin-bottom: 1.5rem;
 }
 
 .nosotros-descripcion h2 {
@@ -252,10 +258,11 @@ body {
 }
 
 .nosotros-container img {
-  width: 45%;
+  width: 100%;
   max-width: 500px;
   object-fit: cover;
   border-radius: 8px;
+  margin-top: 1.5rem;
 }
 
 .nosotros-descripcion {
