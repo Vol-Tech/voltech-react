@@ -1,10 +1,10 @@
 import express from 'express';
-import { crearPedido, listarPedidosDeUsuario } from '../controllers/pedido.controller.js';
+import { creacionPedido, obtenerPedidosUsuario } from '../controllers/pedido.controller.js';
 
 const router = express.Router();
 
-router.post('/', crearPedido);
+router.post('/', creacionPedido);
 
-router.get('/usuario/:usuario_id', listarPedidosDeUsuario);
+router.get('/usuario/:usuario_id', obtenerPedidosUsuario);
 
 export default router;
