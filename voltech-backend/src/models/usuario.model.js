@@ -35,9 +35,10 @@ const crearUsuario = async (usuario) => {
     return resultado.rows[0];
 };
 
-const actualizarDireccion = async (id, calle, comuna, region) => {
+const actualizarDireccion = async (id, calle, comuna, region, departamento) => {
     const query = `
-        UPDATE usuarios SET calle = '${calle}', comuna = '${comuna}', region = '${region}'
+        UPDATE usuarios SET calle = '${calle}', comuna = '${comuna}',
+        region = '${region}, departamento = '${departamento}'
         WHERE id = ${id} RETURNING *;
     `;
 

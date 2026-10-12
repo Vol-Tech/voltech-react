@@ -76,3 +76,40 @@ export const agregarUsuario = async (nuevoUsuario) => {
 
     return usuarioCreado;
 };
+
+export const actualizarDireccionUsuario = async (id, datosDireccion) => {
+    
+    if (!id) {
+        throw new Error("El usuario debe tener un ID para actualizar su direccion");
+    }
+
+    if (!datosDireccion) {
+        throw new Error("Se requieren los datos de direccion para actualizar el perfil");
+    }
+
+    if (!datosDireccion.calle || datosDireccion.calle.trim() === "") {
+        throw new Error("La calle es obligatoria para la direccion de envio");
+    }
+
+    if (!datosDireccion.comuna || datosDireccion.comuna.trim() === "") {
+        throw new Error("La comuna es obligatoria para la direccion de envio");
+    }
+
+    if (!datosDireccion.region || datosDireccion.region.trim() === "") {
+        throw new Error("La region es obligatoria para la direccion de envio");
+    }
+
+    const calleFormateado = datosDireccion.calle.trim();
+    const comunaFormateado = datosDireccion.comuna.trim();
+    const regionFormateado = datosDireccion.region.trim();
+    
+    const departamentoFormateado = datosDireccion.departamento ? datosDireccion.departamento.trim() : "";
+
+    const usuarioActualizado = await usuarioModel.actualizarDireccion( id, calleFormateado, comunaFormateado, regionFormateado, departamentoFormateado);
+
+    if (!usuarioActualizado) {
+        throw new Error("No se pudo actualizar la direccion, no se encontro el usuario");
+    }
+
+    return usuarioActualizado;
+};
