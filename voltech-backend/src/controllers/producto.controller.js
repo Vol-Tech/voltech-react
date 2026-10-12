@@ -25,6 +25,65 @@ export const obtenerProductos = async (req, res) => {
     }
 };
 
+export const obtenerProductoPorId = async (req, res) => {
+    try {
+        const id = req.params.id; 
+
+        const producto = await productoService.obtenerProdId(id);
+
+        res.status(200).json({
+            exito: true,
+            data: producto
+        });
+
+    } catch (error) {
+        
+        if (error.message.includes("debe tener un ID")) {
+            return res.status(400).json({
+                exito: false, 
+                mensaje: error.message 
+            });
+        }
+
+        if (error.message.includes("No se ha encontrado")) {
+            return res.status(404).json({
+                exito: false, 
+                mensaje: error.message 
+            });
+        }
+
+        res.status(500).json({ 
+            exito: false, 
+            mensaje: "Error interno del servidor" 
+        });
+    }
+};
+
+export const obtenerProductosCriticos = async (req, res) => {
+    try {
+        const productos = await productoService.obtenerProdCriticos();
+
+        res.status(200).json({
+            exito: true,
+            data: productos
+        });
+
+    } catch (error) {
+        
+        if (error.message.includes("stock critico")) {
+            return res.status(404).json({ 
+                exito: false, 
+                mensaje: error.message 
+            });
+        }
+
+        res.status(500).json({ 
+            exito: false, 
+            mensaje: "Error interno del inventario" 
+        });
+    }
+};
+
 export const crearProd = async (req, res) => {
     try {
         const datosFrontend = req.body;
@@ -36,9 +95,10 @@ export const crearProd = async (req, res) => {
             mensaje: "Producto creado correctamente!",
             data: nuevoProducto
         });
+
     } catch (error) {
 
-        if (error.message.includes("obligatorio") || error.message.includes("mayor a cero")) {
+        if (error.message.includes("obligatoria") || error.message.includes("mayor a cero")) {
             return res.status(400).json({
                 exito: false,
                 message: error.message
@@ -48,6 +108,79 @@ export const crearProd = async (req, res) => {
         res.status(500).json({
             exito: false,
             mensaje: "Error interno del servidor, intente mas tarde"
+        });
+    }
+};
+
+export const actualizarProducto = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const datosDelFrontend = req.body;
+
+        const productoActualizado = await productoService.modificarProducto(id, datosDelFrontend);
+
+        res.status(200).json({
+            exito: true,
+            mensaje: `El producto '${productoActualizado.nombre}' fue modificado exitosamente.`,
+            data: productoActualizado
+        });
+
+    } catch (error) {
+
+        if (error.message.includes("debe tener un ID") || 
+            error.message.includes("debe tener un nombre") || 
+            error.message.includes("debe tener un precio")) {
+            return res.status(400).json({
+                exito: false, 
+                mensaje: error.message 
+            });
+        }
+
+        // revisar la linea 139 para que coincida con algun error del service de modificarProducto
+        if (error.message.includes("No se ha encontrado el producto")) {
+            return res.status(404).json({
+                exito: false, 
+                mensaje: error.message 
+            });
+        }
+
+        res.status(500).json({
+            exito: false, 
+            mensaje: "Error interno del servidor, intente mas tarde"
+        });
+    }
+};
+
+export const borrarProducto = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const productoABorrar = await productoService.eliminarProducto(id);
+
+        res.status(200).json({
+            exito: true,
+            mensaje: `El producto ${productoABorrar.nombre} fue eliminado`,
+            data: productoABorrar
+        });
+
+    } catch (error) {
+
+        if (error.message.includes("debe tener un ID")) {
+            return res.status(400).json({
+                exito: false,
+                mensaje: error.message
+            });
+        }
+
+        if (error.message.includes("No se encontro")) {
+            return res.status(404).json({
+                exito: false,
+                mensaje: error.message
+            });
+        }
+
+        res.status(500).json({ 
+            exito: false, 
+            mensaje: "Error interno del inventario" 
         });
     }
 };
