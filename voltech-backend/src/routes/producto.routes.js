@@ -6,6 +6,7 @@ import { actualizarProducto, borrarProducto, crearProd, obtenerProductoPorId,
 const router = express.Router();
 
 router.post('/', crearProd);
+
 router.get('/', obtenerProductos);
 router.get('/criticos', obtenerProductosCriticos);
 
