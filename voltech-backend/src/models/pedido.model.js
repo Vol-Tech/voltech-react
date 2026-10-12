@@ -1,11 +1,14 @@
 import conexionBD from "../config/db.js";
 
-const crearPedido = async (usuario_id, total, articulos) => {
+const crearPedido = async (usuario_id, total, articulos, direccion) => {
     await conexionBD.query('BEGIN');
 
     try {
+        const depto = direccion.departamento ? `'${direccion.departamento}'` : 'NULL';
+
         const queryPedido = `
-            INSERT INTO pedidos (usuario_id, total) VALUES (${usuario_id}, ${total})
+            INSERT INTO pedidos ( usuario_id, total, envio_calle, envio_comuna, envio_region, envio_departamento)
+            VALUES (${usuario_id}, ${total}, '${direccion.calle}', '${direccion.comuna}', '${direccion.region}', ${depto})
             RETURNING *;
         `;
 
