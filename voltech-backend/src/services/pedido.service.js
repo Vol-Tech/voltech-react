@@ -21,10 +21,10 @@ export const procesarPedido = async (datosBoleta) => {
     const articulosFormateados = carrito.map(articulo => ({
         producto_id: parseInt(articulo.producto_id),
         cantidad: parseInt(articulo.cantidad),
-        precio_unitario: parseFloat(articulo.precio_unitario)
+        precio_unitario: parseFloat(articulo.precio_unitario),
     }));
 
-    const pedidoCreado = await pedidoModel.crearPedido(usuario_id, total, articulosFormateados);
+    const pedidoCreado = await pedidoModel.crearPedido(usuario_id, total, articulosFormateados, datosDireccion);
 
     return pedidoCreado;
 };
