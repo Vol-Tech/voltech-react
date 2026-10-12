@@ -22,10 +22,9 @@ export const procesarPedido = async (datosBoleta) => {
         producto_id: parseInt(articulo.producto_id),
         cantidad: parseInt(articulo.cantidad),
         precio_unitario: parseFloat(articulo.precio_unitario),
-        datosDireccion
     }));
 
-    const pedidoCreado = await pedidoModel.crearPedido(usuario_id, total, articulosFormateados);
+    const pedidoCreado = await pedidoModel.crearPedido(usuario_id, total, articulosFormateados, datosDireccion);
 
     return pedidoCreado;
 };
