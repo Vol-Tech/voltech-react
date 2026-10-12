@@ -21,7 +21,7 @@ export default function Navbar() {
           <li><Link to="/contacto">Contacto</Link></li>
 
           <li className="usuario-contenedor">
-            <a className="icono-usuario" href="#" aria-label="Usuario"></a>
+            <a className="icono-usuario" href="/registro" aria-label="Usuario"></a>
             <ul className="menu-registro">
               <li><Link to="/login">Iniciar Sesión</Link></li>
               <li><Link to="/registro">Registrarse</Link></li>
