@@ -1,0 +1,247 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #F5F6FF;
+    color: #1E2038;
+}
+
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 260px;
+    background-color: #FFFFFF;
+    border-right: 1px solid #CBD5E1;
+    padding: 20px;
+}
+
+.admin-logo h2 {
+    color: #4F46E5;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.admin-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-menu li {
+    margin-bottom: 15px;
+}
+
+.admin-menu li a {
+    color: #64748B;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.admin-menu li a:hover,
+.admin-menu li a.active {
+    background-color: #E2E5FF;
+    color: #4F46E5;
+}
+
+.admin-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-header {
+    background-color: #FFFFFF;
+    padding: 15px 30px;
+    border-bottom: 1px solid #CBD5E1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-content {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-card {
+    background-color: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 1px 3px rgba(100, 116, 139, 0.1);
+}
+
+.form-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #1E2038;
+    border-bottom: 1px solid #CBD5E1;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #1E2038;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #CBD5E1;
+    background-color: #F5F6FF;
+    color: #1E2038;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.admin-content-table {
+    padding: 20px 30px;
+}
+
+.table-card {
+    background-color: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(100, 116, 139, 0.1);
+}
+
+.table-filter {
+    background-color: #F5F6FF;
+    color: #1E2038;
+    border: 1px solid #CBD5E1;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.admin-table th, 
+.admin-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #CBD5E1;
+}
+
+.admin-table th {
+    background-color: #E2E5FF;
+    color: #1E2038;
+    font-weight: bold;
+}
+
+.admin-table td {
+    color: #4a4a4a;
+}
+
+.admin-table tr:hover {
+    background-color: #F5F6FF;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: #FFFFFF;
+    color: #64748B;
+    border: 1px solid #CBD5E1;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.pagination button:hover, 
+.pagination button.active {
+    background-color: #4F46E5;
+    border-color: #4F46E5;
+    color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+    .nosotros-container {
+        flex-direction: column;
+        padding: 2rem;
+        gap: 2rem;
+    }
+
+    .nosotros-container img {
+        width: 100%;
+    }
+
+    .marcas-container {
+        gap: 1rem;
+    }
+
+    .marcas-container img {
+        height: 100px;
+        max-width: 150px;
+    }
+
+    .marcas-texto {
+        font-size: 1.5rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
+        padding: 0 1rem;
+    }
+}
+.main-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+.tabla-usuarios-container {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 30px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-usuarios-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.tabla-usuarios-container th, 
+.tabla-usuarios-container td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.tabla-usuarios-container th {
+    background-color: #f0f0f0;
+}
