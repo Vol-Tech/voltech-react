@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import ListadoProductos from './ListadoProductos';
+import ListadoCategorias from './ListadoCategorias';
+import ListadoOrdenes from './ListadoOrdenes';
+import ListadoUsuarios from './ListadoUsuarios';
 
 const AdminDashboard = () => {
   // Estado para controlar qué sección del admin está activa
@@ -177,11 +180,20 @@ const AdminDashboard = () => {
             </>
           )}
 
-          {/* SECCIÓN 2: LISTADO DE PRODUCTOS (Componente Exclusivo) */}
+          {/* SECCIÓN 2: LISTADO DE PRODUCTOS */}
           {seccionActual === 'productos' && <ListadoProductos />}
 
-          {/* SECCIÓN TEMPORAL PARA OTRAS PÁGINAS */}
-          {seccionActual !== 'dashboard' && seccionActual !== 'productos' && (
+          {/* SECCIÓN 3: LISTADO DE CATEGORÍAS */}
+          {seccionActual === 'categorias' && <ListadoCategorias />}
+
+          {/* SECCIÓN 4: ÓRDENES */}
+          {seccionActual === 'ordenes' && <ListadoOrdenes />}
+
+          {/* SECCIÓN 5: USUARIOS */}
+          {seccionActual === 'usuarios' && <ListadoUsuarios />}
+
+          {/* SECCIÓN TEMPORAL PARA OTRAS PÁGINAS (Reportes, Perfil) */}
+          {seccionActual === 'reportes' || seccionActual === 'perfil' ? (
             <div className="bg-white p-5 rounded shadow-sm text-center">
               <h3 className="text-capitalize fw-bold text-dark">Módulo de {seccionActual}</h3>
               <p className="text-muted">Vista en desarrollo para la siguiente entrega.</p>
@@ -189,7 +201,7 @@ const AdminDashboard = () => {
                 Volver al Dashboard
               </button>
             </div>
-          )}
+          ) : null}
 
         </div>
       </div>
