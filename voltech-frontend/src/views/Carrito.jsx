@@ -7,9 +7,16 @@ import { useCarrito } from '../context/CarritoContext'
 export default function Carrito() {
   const { items, total, cambiarCantidad, eliminar, vaciar } = useCarrito()
   const [productos, setProductos] = useState([])
+  const [cargando, setCargando] = useState(true)
 
   useEffect(() => {
-    obtenerProductos().then((datos) => setProductos(datos))
+    setCargando(true)
+    obtenerProductos()
+      .then((respuesta) => {
+        const lista = Array.isArray(respuesta) ? respuesta : (respuesta?.data || [])
+        setProductos(lista)
+      })
+      .finally(() => setCargando(false))
   }, [])
 
   return (
@@ -19,9 +26,17 @@ export default function Carrito() {
         <section className="col-lg-6">
           <h2>Lista de productos</h2>
           <div className="producto-contenedor lista-carrito">
-            {productos.map((producto) => (
-              <ProductCard key={producto.id} producto={producto} clase="producto" />
-            ))}
+            {cargando ? (
+              <div className="d-flex justify-content-center align-items-center w-100 my-5">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Cargando...</span>
+                </div>
+              </div>
+            ) : (
+              productos.map((producto) => (
+                <ProductCard key={producto.id} producto={producto} clase="producto" />
+              ))
+            )}
           </div>
         </section>
 

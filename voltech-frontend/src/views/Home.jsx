@@ -5,10 +5,17 @@ import { useCarrito } from '../context/CarritoContext'
 
 export default function Home() {
   const [productosDestacados, setProductosDestacados] = useState([])
+  const [cargando, setCargando] = useState(true)
   const { agregar } = useCarrito()
 
   useEffect(() => {
-    obtenerProductos().then((datos) => setProductosDestacados(datos.slice(0, 4)))
+    setCargando(true)
+    obtenerProductos()
+      .then((respuesta) => {
+        const lista = Array.isArray(respuesta) ? respuesta : (respuesta?.data || [])
+        setProductosDestacados(lista.slice(0, 4))
+      })
+      .finally(() => setCargando(false)) 
   }, [])
 
   return (
@@ -20,16 +27,25 @@ export default function Home() {
       </div>
 
       <div className="producto-contenedor">
-        {productosDestacados.map((producto) => (
-          <div className="producto-oferta" key={producto.id}>
-            <img src={producto.imagen_url} alt={producto.nombre} />
-            <a href="#">
-              <span className="nombre-producto">{producto.nombre}</span>
-            </a>
-            <p>${Number(producto.precio).toLocaleString('es-CL')}</p>
-            <button onClick={() => agregar(producto)}>Añadir</button>
+        {cargando ? (
+          <div className="d-flex flex-column justify-content-center align-items-center w-100 my-5">
+            <div className="spinner-border text-primary" role="status" style={{ width: '3rem', height: '3rem' }}>
+              <span className="visually-hidden">Cargando...</span>
+            </div>
+            <p className="mt-2 text-muted">Cargando productos...</p>
           </div>
-        ))}
+        ) : (
+          productosDestacados.map((producto) => (
+            <div className="producto-oferta" key={producto.id}>
+              <img src={producto.imagen_url} alt={producto.nombre} />
+              <a href="#">
+                <span className="nombre-producto">{producto.nombre}</span>
+              </a>
+              <p>${Number(producto.precio).toLocaleString('es-CL')}</p>
+              <button onClick={() => agregar(producto)}>Añadir</button>
+            </div>
+          ))
+        )}
       </div>
     </main>
   )

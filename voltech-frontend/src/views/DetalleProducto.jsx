@@ -25,7 +25,16 @@ export default function DetalleProducto() {
     })
   }, [productoId])
 
-  if (!producto) return null
+  if (!producto) {
+    return (
+      <main className="d-flex flex-column justify-content-center align-items-center my-5 py-5">
+        <div className="spinner-border text-primary" role="status" style={{ width: '3rem', height: '3rem' }}>
+          <span className="visually-hidden">Cargando...</span>
+        </div>
+        <p className="mt-3 text-muted">Cargando detalles del producto...</p>
+      </main>
+    )
+  }
 
   const categoria = categorias.find((cat) => cat.id.toLowerCase() === producto.categoria.toLowerCase()) || { nombre: producto.categoria }
 
@@ -70,14 +79,26 @@ export default function DetalleProducto() {
               id="numeros"
               value={cantidad}
               onChange={(e) => setCantidad(Number(e.target.value))}
+              disabled={Number(producto.stock) === 0}
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
+              {Number(producto.stock) > 0 ? (
+                Array.from({ length: Number(producto.stock) }, (_, i) => i + 1).map((num) => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))
+              ) : (
+                <option value="0">Sin stock</option>
+              )}
             </select>
           </div>
 
-          <button onClick={() => agregar(producto, cantidad)}>Agregar al Carrito</button>
+          <button 
+            onClick={() => agregar(producto, cantidad)}
+            disabled={Number(producto.stock) === 0}
+          >
+            {Number(producto.stock) > 0 ? 'Agregar al Carrito' : 'Agotado'}
+          </button>
 
         </div>
       </div>
