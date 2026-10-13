@@ -6,9 +6,9 @@ export default function Footer() {
       <div className="foot-container">
         <div className="foot-info">
           <ul>
-            <li><a href="#">Categoria X</a></li>
-            <li><a href="#">Categoria Y</a></li>
-            <li><a href="#">Categoria Z</a></li>
+            <li><Link to="/categorias/cables">Categoria Cables</Link></li>
+            <li><Link to="/categorias/mouse">Categoria Mouse</Link></li>
+            <li><Link to="/categorias/monitores">Categoria Monitor</Link></li>
             <li><p>Estamos en Contacto!</p></li>
           </ul>
         </div>

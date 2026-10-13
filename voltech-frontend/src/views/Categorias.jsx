@@ -10,7 +10,9 @@ export default function Categorias() {
 
   return (
     <main className="container py-4">
-
+      <div className="titulo-categoria">
+        <h2>Categorias Disponibles</h2>
+      </div>
       <div className="row g-3 justify-content-center mb-4">
         {categorias.map((cat) => (
           <div className="col-6 col-md-3" key={cat.id}>
