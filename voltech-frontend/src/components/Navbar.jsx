@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 
+import { useCarrito } from '../context/CarritoContext'
+
 export default function Navbar() {
+  const { total } = useCarrito()
   return (
     <header>
       <nav className="nav-tab">
@@ -15,7 +18,8 @@ export default function Navbar() {
 
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/productos">Productos</Link></li>
+          <li><Link to="/categorias">Categorias</Link></li>
+
           <li><Link to="/nosotros">Nosotros</Link></li>
           <li><Link to="/blogs">Blogs</Link></li>
           <li><Link to="/contacto">Contacto</Link></li>
@@ -28,7 +32,8 @@ export default function Navbar() {
             </ul>
           </li>
 
-          <li><a className="icono-carrito" href="#" aria-label="Carrito"></a></li>
+          <li><Link className="icono-carrito" to="/carrito" aria-label="Carrito"></Link></li>
+          <li>${total.toLocaleString('es-CL')}</li>
         </ul>
       </nav>
     </header>

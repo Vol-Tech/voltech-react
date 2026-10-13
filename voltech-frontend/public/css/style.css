@@ -43,6 +43,21 @@ body {
 
 /* final de css del carrusel */
 
+.categoria-img {
+  height: 200px;
+  object-fit: contain;
+}
+
+.categoria:hover {
+  border: 1.5px solid #6366F1;
+}
+
+.carrito-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
 .producto-contenedor {
   display: flex;
   flex-direction: row;
