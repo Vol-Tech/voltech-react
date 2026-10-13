@@ -1,5 +1,11 @@
 const API_URL = 'http://localhost:3000/api';
 
+export const categorias = [
+  { id: 'cables', nombre: 'Cables', imagen: '/img/Cable tipo C.png' },
+  { id: 'mouse', nombre: 'Mouse', imagen: '/img/Mouse Gamer.png' },
+  { id: 'monitores', nombre: 'Monitores', imagen: '/img/Monitor Gamer.png' },
+];
+
 export async function obtenerProductos() {
     try {
         const respuesta = await fetch(`${API_URL}/productos`);
