@@ -1,27 +1,43 @@
-import React, { useState } from 'react';
-import { obtenerProductos, eliminarProducto, crearProducto, actualizarProducto, categorias } from '../data/productos';
+import React, { useState, useEffect } from 'react';
+import { obtenerProductos, borrarProducto, crearProd, actualizarProducto, categorias } from '../services/api';
 
 const ListadoProductos = () => {
-  const [listaProductos, setListaProductos] = useState(obtenerProductos());
+  const [listaProductos, setListaProductos] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modoEdicion, setModoEdicion] = useState(false);
 
-  // Estado para controlar los campos del formulario
+  // Estado para controlar los campos del formulario (adaptado a NeonDB)
   const [formData, setFormData] = useState({
     id: null,
     nombre: '',
+    descripcion: '',
     precio: '',
     stock: '',
-    categoria: 'cables',
-    imagen: ''
+    categoria: 'Cables',
+    imagen_url: ''
   });
 
-  // Manejar eliminación de productos
-  const handleEliminar = (id) => {
+  // Función asíncrona para recargar la tabla desde NeonDB
+  const cargarProductos = async () => {
+    const datos = await obtenerProductos();
+    setListaProductos(datos);
+  };
+
+  // Cargar productos al abrir la vista
+  useEffect(() => {
+    cargarProductos();
+  }, []);
+
+  // Manejar eliminación de productos en la BD
+  const handleEliminar = async (id) => {
     const confirmar = window.confirm('¿Estás seguro de que deseas eliminar este producto?');
     if (confirmar) {
-      eliminarProducto(id);
-      setListaProductos([...obtenerProductos()]);
+      try {
+        await borrarProducto(id);
+        await cargarProductos();
+      } catch (error) {
+        console.error("Error al eliminar:", error);
+      }
     }
   };
 
@@ -31,10 +47,11 @@ const ListadoProductos = () => {
     setFormData({
       id: null,
       nombre: '',
+      descripcion: '',
       precio: '',
       stock: '',
-      categoria: 'cables',
-      imagen: '/img/productos/cable-vga.jpg'
+      categoria: 'Cables',
+      imagen_url: 'https://i.imgur.com/O4NVYbh.jpg'
     });
     setShowModal(true);
   };
@@ -45,38 +62,41 @@ const ListadoProductos = () => {
     setFormData({
       id: producto.id,
       nombre: producto.nombre,
-      precio: producto.precio,
+      descripcion: producto.descripcion || '',
+      precio: Number(producto.precio),
       stock: producto.stock,
       categoria: producto.categoria,
-      imagen: producto.imagen
+      imagen_url: producto.imagen_url || producto.imagen || ''
     });
     setShowModal(true);
   };
 
-  // Guardar los datos (Creación o Edición)
-  const handleSubmit = (e) => {
+  // Guardar los datos en NeonDB (Creación o Edición)
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (modoEdicion) {
-      actualizarProducto(formData.id, {
-        nombre: formData.nombre,
-        precio: Number(formData.precio),
-        stock: Number(formData.stock),
-        categoria: formData.categoria,
-        imagen: formData.imagen
-      });
-    } else {
-      crearProducto({
-        nombre: formData.nombre,
-        precio: Number(formData.precio),
-        stock: Number(formData.stock),
-        categoria: formData.categoria,
-        imagen: formData.imagen || '/img/productos/cable-vga.jpg'
-      });
-    }
+    
+    const payload = {
+      nombre: formData.nombre,
+      descripcion: formData.descripcion || `Producto ${formData.nombre}`,
+      precio: Number(formData.precio),
+      stock: Number(formData.stock),
+      categoria: formData.categoria,
+      imagen_url: formData.imagen_url || 'https://i.imgur.com/O4NVYbh.jpg'
+    };
 
-    // Actualizamos la vista con los nuevos datos
-    setListaProductos([...obtenerProductos()]);
-    setShowModal(false);
+    try {
+      if (modoEdicion) {
+        await actualizarProducto(formData.id, payload);
+      } else {
+        await crearProducto(payload);
+      }
+
+      // Actualizamos la vista consultando los datos frescos de la BD
+      await cargarProductos();
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error al guardar el producto:", error);
+    }
   };
 
   return (
@@ -109,7 +129,7 @@ const ListadoProductos = () => {
                   <td className="fw-bold">{prod.id}</td>
                   <td>
                     <img 
-                      src={prod.imagen} 
+                      src={prod.imagen_url} 
                       alt={prod.nombre} 
                       style={{ width: '50px', height: '50px', objectFit: 'cover' }} 
                       className="rounded border"
@@ -117,7 +137,7 @@ const ListadoProductos = () => {
                   </td>
                   <td>{prod.nombre}</td>
                   <td className="text-capitalize">{prod.categoria}</td>
-                  <td>${prod.precio.toLocaleString('es-CL')}</td>
+                  <td>${Number(prod.precio).toLocaleString('es-CL')}</td>
                   <td>
                     <span className={`badge ${prod.stock > 5 ? 'bg-success' : 'bg-danger'}`}>
                       {prod.stock} u.
@@ -178,6 +198,17 @@ const ListadoProductos = () => {
                     />
                   </div>
 
+                  <div className="mb-3">
+                    <label className="form-label fw-bold">Descripción</label>
+                    <input 
+                      type="text" 
+                      className="form-control" 
+                      value={formData.descripcion}
+                      onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
+                      placeholder="Descripción breve del producto"
+                    />
+                  </div>
+
                   <div className="row">
                     <div className="col-md-6 mb-3">
                       <label className="form-label fw-bold">Precio ($)</label>
@@ -209,7 +240,7 @@ const ListadoProductos = () => {
                       onChange={(e) => setFormData({ ...formData, categoria: e.target.value })}
                     >
                       {categorias.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
+                        <option key={cat.id} value={cat.nombre}>
                           {cat.nombre}
                         </option>
                       ))}
@@ -217,13 +248,13 @@ const ListadoProductos = () => {
                   </div>
 
                   <div className="mb-3">
-                    <label className="form-label fw-bold">Ruta de Imagen</label>
+                    <label className="form-label fw-bold">URL de Imagen</label>
                     <input 
                       type="text" 
                       className="form-control" 
-                      value={formData.imagen}
-                      onChange={(e) => setFormData({ ...formData, imagen: e.target.value })}
-                      placeholder="/img/productos/ejemplo.jpg"
+                      value={formData.imagen_url}
+                      onChange={(e) => setFormData({ ...formData, imagen_url: e.target.value })}
+                      placeholder="https://i.imgur.com/ejemplo.jpg"
                       required 
                     />
                   </div>

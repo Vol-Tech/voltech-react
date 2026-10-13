@@ -1,12 +1,16 @@
-const productosDestacados = [
-  { id: 1, nombre: 'Cable Master G USB-A a USB-C', precio: 0, imagen: '/img/productos/cable-usb-c-master-g.jpeg' },
-  { id: 2, nombre: 'Cable Baseus Tipo-C 60W 2m Negro', precio: 0, imagen: '/img/productos/cable-tipo-c-baseus.jpg' },
-  { id: 3, nombre: 'Cable USB-C a Lightning 2m Blanco', precio: 0, imagen: '/img/productos/cable-usb-c-apple.jpeg' },
-  { id: 4, nombre: 'Cable VGA a VGA 1.8m', precio: 0, imagen: '/img/productos/cable-vga.jpg' },
-]
-
+import { useState, useEffect } from 'react'
 import CarouselHome from '../components/CarouselHome'
+import { obtenerProductos } from '../services/api'
+import { useCarrito } from '../context/CarritoContext'
+
 export default function Home() {
+  const [productosDestacados, setProductosDestacados] = useState([])
+  const { agregar } = useCarrito()
+
+  useEffect(() => {
+    obtenerProductos().then((datos) => setProductosDestacados(datos.slice(0, 4)))
+  }, [])
+
   return (
     <main>
       <CarouselHome />
@@ -18,12 +22,12 @@ export default function Home() {
       <div className="producto-contenedor">
         {productosDestacados.map((producto) => (
           <div className="producto-oferta" key={producto.id}>
-            <img src={producto.imagen} alt={producto.nombre} />
+            <img src={producto.imagen_url} alt={producto.nombre} />
             <a href="#">
               <span className="nombre-producto">{producto.nombre}</span>
             </a>
-            <p>${producto.precio.toLocaleString('es-CL')}</p>
-            <button>Añadir</button>
+            <p>${Number(producto.precio).toLocaleString('es-CL')}</p>
+            <button onClick={() => agregar(producto)}>Añadir</button>
           </div>
         ))}
       </div>

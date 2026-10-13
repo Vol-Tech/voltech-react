@@ -6,42 +6,101 @@ export const categorias = [
   { id: 'monitores', nombre: 'Monitores', imagen: '/img/Monitor Gamer.png' },
 ];
 
-export async function obtenerProductos() {
-    try {
-        const respuesta = await fetch(`${API_URL}/productos`);
+export const obtenerProductos = async () => {
+  try {
+    const respuesta = await fetch(`${API_URL}/productos`);
+    const resultado = await respuesta.json();
 
-        if (!respuesta.ok) throw new Error("Error al obtener los productos");
-
-        return await respuesta.json();
-    } catch (error) {
-        console.error("Error en obtener productos:", error);
-        return [];
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || 'Error al obtener los productos');
     }
-}
+    return resultado.data; 
+  } catch (error) {
+    console.error("Error en obtenerProductos:", error);
+    return [];
+  }
+};
 
-export async function obtenerProductosCriticos() {
-    try {
-        const respuesta = await fetch(`${API_URL}/productos/criticos`);
+export const obtenerProductoPorId = async (id) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/productos/${id}`);
+    const resultado = await respuesta.json();
 
-        if (!respuesta.ok) throw new Error("Error al obtener productos criticos");
-
-        return await respuesta.json();
-    } catch (error) {
-        console.error("Error en obtener los productos criticos:", error);
-        return [];
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || `No se encontró el producto con ID ${id}`);
     }
-}
 
-export async function obtenerProductoPorId(id) {
-    try {
-        const respuesta = await fetch(`${API_URL}/productos/${id}`);
+    return resultado.data; 
+  } catch (error) {
+    console.error(`Error en obtenerProductoPorId (${id}):`, error);
+    return null;
+  }
+};
 
-        if (!respuesta.ok) throw new Error("Error al obtener el producto por id");
+export const obtenerProductosCriticos = async () => {
+  try {
+    const respuesta = await fetch(`${API_URL}/productos/criticos`);
+    const resultado = await respuesta.json();
 
-        return await respuesta.json();
-    } catch (error) {
-        console.error("Error en obtener el producto por su id:", error);
-        return null;
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || 'Error al obtener productos críticos');
     }
-}
 
+    return resultado.data;
+  } catch (error) {
+    console.error("Error en obtenerProductosCriticos:", error);
+    return [];
+  }
+};
+
+export const crearProd = async (nuevoProducto) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/productos`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(nuevoProducto),
+    });
+    const resultado = await respuesta.json();
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || resultado.message || 'Error al crear el producto');
+    }
+    return resultado.data;
+  } catch (error) {
+    console.error("Error en crearProd:", error);
+    throw error;
+  }
+};
+
+export const actualizarProducto = async (id, datosActualizados) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/productos/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datosActualizados),
+    });
+    const resultado = await respuesta.json();
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || `Error al actualizar el producto ${id}`);
+    }
+    return resultado.data;
+  } catch (error) {
+    console.error(`Error en actualizarProducto (${id}):`, error);
+    throw error;
+  }
+};
+
+export const borrarProducto = async (id) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/productos/${id}`, {
+      method: 'DELETE',
+    });
+    const resultado = await respuesta.json();
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || `Error al eliminar el producto ${id}`);
+    }
+    return resultado.data;
+  } catch (error) {
+    console.error(`Error en borrarProducto (${id}):`, error);
+    throw error;
+  }
+};

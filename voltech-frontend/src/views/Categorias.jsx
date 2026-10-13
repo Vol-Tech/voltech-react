@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
-import { categorias, obtenerProductosPorCategoria } from '../services/api'
+import { categorias, obtenerProductos } from '../services/api'
 
 export default function Categorias() {
   const { id } = useParams()
@@ -10,7 +10,14 @@ export default function Categorias() {
   const [productos, setProductos] = useState([])
 
   useEffect(() => {
-    obtenerProductosPorCategoria(categoriaId).then((datos) => setProductos(datos))
+    obtenerProductos().then((respuesta) => {
+      // Extrae el arreglo tanto si api.js devuelve resultado.data como si devuelve el JSON completo
+      const lista = Array.isArray(respuesta) ? respuesta : (respuesta?.data || [])
+      const filtrados = lista.filter(
+        (producto) => producto.categoria.toLowerCase() === categoriaId.toLowerCase()
+      )
+      setProductos(filtrados)
+    })
   }, [categoriaId])
 
   return (
