@@ -1,11 +1,16 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
-import { obtenerProductos } from '../data/productos'
+import { obtenerProductos } from '../services/api'
 import { useCarrito } from '../context/CarritoContext'
 
 export default function Carrito() {
   const { items, total, cambiarCantidad, eliminar, vaciar } = useCarrito()
-  const productos = obtenerProductos()
+  const [productos, setProductos] = useState([])
+
+  useEffect(() => {
+    obtenerProductos().then((datos) => setProductos(datos))
+  }, [])
 
   return (
     <main className="container py-4">
@@ -42,9 +47,9 @@ export default function Carrito() {
                   <tbody>
                     {items.map((item) => (
                       <tr key={item.id}>
-                        <td><img src={item.imagen} alt={item.nombre} className="carrito-img" /></td>
+                        <td><img src={item.imagen_url} alt={item.nombre} className="carrito-img" /></td>
                         <td>{item.nombre}</td>
-                        <td>${item.precio.toLocaleString('es-CL')}</td>
+                        <td>${Number(item.precio).toLocaleString('es-CL')}</td>
                         <td>
                           <div className="d-flex align-items-center gap-2">
                             <button
@@ -62,7 +67,7 @@ export default function Carrito() {
                             </button>
                           </div>
                         </td>
-                        <td>${(item.precio * item.cantidad).toLocaleString('es-CL')}</td>
+                        <td>${(Number(item.precio) * item.cantidad).toLocaleString('es-CL')}</td>
                         <td>
                           <button className="btn btn-sm btn-danger" onClick={() => eliminar(item.id)}>
                             Eliminar
@@ -74,7 +79,7 @@ export default function Carrito() {
                 </table>
               </div>
 
-              <h4 className="text-end">Total: ${total.toLocaleString('es-CL')}</h4>
+              <h4 className="text-end">Total: ${Number(total).toLocaleString('es-CL')}</h4>
 
               <div className="d-flex justify-content-end gap-2">
                 <button className="btn btn-secondary" onClick={vaciar}>Limpiar</button>

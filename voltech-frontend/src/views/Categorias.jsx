@@ -1,12 +1,17 @@
+import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
-import { categorias, obtenerProductosPorCategoria } from '../data/productos'
+import { categorias, obtenerProductosPorCategoria } from '../services/api'
 
 export default function Categorias() {
   const { id } = useParams()
   const categoriaId = id || categorias[0].id
-  const categoriaActual = categorias.find((cat) => cat.id === categoriaId)
-  const productos = obtenerProductosPorCategoria(categoriaId)
+  const categoriaActual = categorias.find((cat) => cat.id.toLowerCase() === categoriaId.toLowerCase()) || categorias[0]
+  const [productos, setProductos] = useState([])
+
+  useEffect(() => {
+    obtenerProductosPorCategoria(categoriaId).then((datos) => setProductos(datos))
+  }, [categoriaId])
 
   return (
     <main className="container py-4">
