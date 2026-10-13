@@ -38,7 +38,7 @@ export function CarritoProvider({ children }) {
     setItems([])
   }
 
-  const total = items.reduce((suma, item) => suma + item.precio * item.cantidad, 0)
+  const total = items.reduce((suma, item) => suma + Number(item.precio) * item.cantidad, 0)
   const cantidadTotal = items.reduce((suma, item) => suma + item.cantidad, 0)
 
   return (
