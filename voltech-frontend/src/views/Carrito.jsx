@@ -13,7 +13,7 @@ export default function Carrito() {
 
         <section className="col-lg-6">
           <h2>Lista de productos</h2>
-          <div className="producto-contenedor">
+          <div className="producto-contenedor lista-carrito">
             {productos.map((producto) => (
               <ProductCard key={producto.id} producto={producto} clase="producto" />
             ))}
@@ -46,19 +46,21 @@ export default function Carrito() {
                         <td>{item.nombre}</td>
                         <td>${item.precio.toLocaleString('es-CL')}</td>
                         <td>
-                          <button
-                            className="btn btn-sm btn-outline-secondary"
-                            onClick={() => cambiarCantidad(item.id, item.cantidad - 1)}
-                          >
-                            -
-                          </button>
-                          <span className="mx-2">{item.cantidad}</span>
-                          <button
-                            className="btn btn-sm btn-outline-secondary"
-                            onClick={() => cambiarCantidad(item.id, item.cantidad + 1)}
-                          >
-                            +
-                          </button>
+                          <div className="d-flex align-items-center gap-2">
+                            <button
+                              className="btn btn-sm btn-outline-secondary"
+                              onClick={() => cambiarCantidad(item.id, item.cantidad - 1)}
+                            >
+                              -
+                            </button>
+                            <span className="mx-2">{item.cantidad}</span>
+                            <button
+                              className="btn btn-sm btn-outline-secondary"
+                              onClick={() => cambiarCantidad(item.id, item.cantidad + 1)}
+                            >
+                              +
+                            </button>
+                          </div>
                         </td>
                         <td>${(item.precio * item.cantidad).toLocaleString('es-CL')}</td>
                         <td>

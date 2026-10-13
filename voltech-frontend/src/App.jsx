@@ -29,10 +29,10 @@ function App() {
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
-        <Route path="/productos/:id" element={<DetalleProducto />} />
 
         <Route path="/categorias" element={<Categorias />} />
         <Route path="/categorias/:id" element={<Categorias />} />
+        <Route path="/categorias/:categoriaId/:productoId" element={<DetalleProducto />} />
 
         <Route path="/carrito" element={<Carrito />} />
 

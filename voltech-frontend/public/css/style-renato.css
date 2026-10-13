@@ -39,6 +39,16 @@
   color: #039e0b;
 }
 
+.titulo-categoria {
+  text-align: center;
+}
+
+.titulo-categoria h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+
 .blog-tarjeta {
   display: flex;
   flex-direction: row;
