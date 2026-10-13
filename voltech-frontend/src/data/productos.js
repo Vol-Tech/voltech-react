@@ -21,6 +21,9 @@ export const productos = [
   { id: 12, nombre: 'Monitor Gamer ASUS TUF 32 QHD 170Hz, VA, 1ms, VG32AQA1A', precio: 232990, stock: 3, categoria: 'monitores', imagen: '/img/productos/monitor-4.jpg' },
 ]
 
+
+// OPERACIONES CRUD 
+
 export function obtenerProductos() {
   return productos
 }
@@ -37,4 +40,35 @@ export function obtenerProductosSimilares(producto) {
   return productos
     .filter((p) => p.categoria === producto.categoria && p.id !== producto.id)
     .slice(0, 3)
+}
+
+
+// OPERACIONES CRUD FALTANTES (Create, Update, Delete)
+
+export function crearProducto(nuevoProducto) {
+  const nuevoId = productos.length > 0 ? productos[productos.length - 1].id + 1 : 1;
+  const productoConId = { id: nuevoId, ...nuevoProducto };
+  
+  productos.push(productoConId);
+  return productoConId;
+}
+
+export function actualizarProducto(id, datosActualizados) {
+  const index = productos.findIndex((producto) => producto.id === Number(id));
+  
+  if (index !== -1) {
+    productos[index] = { ...productos[index], ...datosActualizados };
+    return productos[index];
+  }
+  return null; 
+}
+
+export function eliminarProducto(id) {
+  const index = productos.findIndex((producto) => producto.id === Number(id));
+  
+  if (index !== -1) {
+    productos.splice(index, 1);
+    return true; 
+  }
+  return false; 
 }
