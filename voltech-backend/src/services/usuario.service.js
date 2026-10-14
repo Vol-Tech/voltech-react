@@ -74,10 +74,14 @@ export const agregarUsuario = async (nuevoUsuario) => {
     }
 
     const usuarioACrear = {
+        run: nuevoUsuario.run ? nuevoUsuario.run.trim() : "",
         nombre: nuevoUsuario.nombre.trim(),
         apellidos: nuevoUsuario.apellidos.trim(),
         email: emailFormateado,
-        contrasena: nuevoUsuario.contrasena.trim()
+        contrasena: nuevoUsuario.contrasena.trim(),
+        telefono: nuevoUsuario.telefono ? nuevoUsuario.telefono.trim() : "",
+        region: nuevoUsuario.region ? nuevoUsuario.region.trim() : "",
+        comuna: nuevoUsuario.comuna ? nuevoUsuario.comuna.trim() : ""
     };
 
     const usuarioCreado = await usuarioModel.crearUsuario(usuarioACrear);
