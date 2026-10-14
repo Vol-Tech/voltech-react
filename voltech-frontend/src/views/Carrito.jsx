@@ -5,7 +5,7 @@ import { obtenerProductos } from '../services/api'
 import { useCarrito } from '../context/CarritoContext'
 
 export default function Carrito() {
-  const { items, total, cambiarCantidad, eliminar, vaciar } = useCarrito()
+  const { items, total, cambiarCantidad, eliminar, vaciar, agregar } = useCarrito()
   const [productos, setProductos] = useState([])
   const [cargando, setCargando] = useState(true)
 
@@ -34,7 +34,7 @@ export default function Carrito() {
               </div>
             ) : (
               productos.map((producto) => (
-                <ProductCard key={producto.id} producto={producto} clase="producto" />
+                <ProductCard key={producto.id} producto={producto} clase="producto" agregar={agregar} />
               ))
             )}
           </div>
