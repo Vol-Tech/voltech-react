@@ -125,6 +125,7 @@ export const borrarProducto = async (id) => {
 
 // endpoints de la api usuarios 'http://localhost:3000/api/productos'
 
+// GET''s
 export const obtenerTodoUsuarios = async () => {
   try {
     const respuesta = await fetch(`${API_URL}/usuarios`);
@@ -136,8 +137,125 @@ export const obtenerTodoUsuarios = async () => {
 
     return resultado.data; 
   } catch (error) {
-    console.error("Error en obtenerProductos:", error);
+    console.error("Error en obtenerTodoUsuarios:", error);
     return [];
   }
 };
 
+
+export const obtenerUsuarioPorEmail = async (email) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/usuarios/email/${email}`);
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || `No se encontró el usuario con EMAIL ${email}`);
+    }
+
+    return resultado.data; 
+  } catch (error) {
+    console.error(`Error en obtenerProductoPorId (${email}):`, error);
+    return null;
+  }
+};
+
+export const obtenerIdUsuario = async (id) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/usuarios/${id}`);
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || `No se encontró el usuario con ID ${id}`);
+    }
+
+    return resultado.data; 
+  } catch (error) {
+    console.error(`Error en obtenerIdUsuario (${id}):`, error);
+    return null;
+  }
+};
+
+// POST
+export const creacionUsuario = async (nuevoUsuario) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/usuarios/registro`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(nuevoUsuario),
+    });
+
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || resultado.message || 'Error al crear el usuario');
+    }
+
+    return resultado.data;
+  } catch (error) {
+    console.error("Error en creacionUsuario:", error);
+    throw error;
+  }
+};
+
+// PUT
+export const actualizarDireccionDeUsuario = async (id, datosDireccion) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/usuarios/${id}/direccion`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datosActualizados),
+    });
+
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || `Error al actualizar el usuario de id ${id}`);
+    }
+
+    return resultado.data;
+  } catch (error) {
+    console.error(`Error en actualizarDireccionDeUsuario (${id}):`, error);
+    throw error;
+  }
+};
+
+// endpoints de la api pedidos 'http://localhost:3000/api/pedidos'
+
+// GET
+export const obtenerPedidosUsuario = async (usuario_id) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/pedidos/usuario/${usuario_id}`);
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || `Error al obtener los pedidos del usuario ${usuario_id}`);
+    }
+
+    return resultado.data;
+  } catch (error) {
+    console.error(`Error en obtenerPedidosUsuario (${usuario_id}):`, error);
+    return [];
+  }
+};
+
+// POST
+export const creacionPedido = async (datosBoleta) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/pedidos`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datosBoleta),
+    });
+
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || 'Error al realizar el pedido');
+    }
+
+    return resultado.data;
+  } catch (error) {
+    console.error("Error en creacionPedido:", error);
+    throw error;
+  }
+};
