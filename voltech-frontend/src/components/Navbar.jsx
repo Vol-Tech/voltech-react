@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
-
+import { useState } from 'react'
 import { useCarrito } from '../context/CarritoContext'
 
 export default function Navbar() {
   const { total } = useCarrito()
+  const [menuUsuario, setMenuUsuario] = useState(false)
+  const menu = () => { setMenuUsuario(!menuUsuario) }
+
   return (
     <header>
       <nav className="nav-tab">
@@ -25,11 +28,21 @@ export default function Navbar() {
           <li><Link to="/contacto">Contacto</Link></li>
 
           <li className="usuario-contenedor">
-            <a className="icono-usuario" href="/registro" aria-label="Usuario"></a>
-            <ul className="menu-registro">
-              <li><Link to="/login">Iniciar Sesión</Link></li>
-              <li><Link to="/registro">Registrarse</Link></li>
-            </ul>
+            <div>
+              <button className="boton-usuario"
+                onClick={menu}
+              ><a className="icono-usuario" href="#" aria-label="Usuario"></a>
+              </button>
+              {
+                menuUsuario && (
+                  <ul className="menu-registro">
+                    <li><Link to="/login">Iniciar Sesión</Link></li>
+                    <li><Link to="/registro">Registrarse</Link></li>
+                  </ul>
+                )
+              }
+            </div>
+
           </li>
 
           <li><Link className="icono-carrito" to="/carrito" aria-label="Carrito"></Link></li>
