@@ -1,23 +1,37 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import ProductCard from '../components/ProductCard'
-import { obtenerProductos } from '../services/api'
-import { useCarrito } from '../context/CarritoContext'
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import ProductCard from '../components/ProductCard';
+import { obtenerProductos } from '../services/api';
+import { useCarrito } from '../context/CarritoContext';
 
 export default function Carrito() {
-  const { items, total, cambiarCantidad, eliminar, vaciar, agregar } = useCarrito()
-  const [productos, setProductos] = useState([])
-  const [cargando, setCargando] = useState(true)
+  const { items, total, cambiarCantidad, eliminar, vaciar, agregar } = useCarrito();
+  const [productos, setProductos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setCargando(true)
+    setCargando(true);
     obtenerProductos()
       .then((respuesta) => {
-        const lista = Array.isArray(respuesta) ? respuesta : (respuesta?.data || [])
-        setProductos(lista)
+        const lista = Array.isArray(respuesta) ? respuesta : (respuesta?.data || []);
+        setProductos(lista);
       })
-      .finally(() => setCargando(false))
-  }, [])
+      .finally(() => setCargando(false));
+  }, []);
+
+  const irAlCheckout = (e) => {
+    e.preventDefault();
+    const usuarioGuardado = localStorage.getItem('usuario');
+
+    if (!usuarioGuardado) {
+      alert('Debes iniciar sesión para realizar una compra');
+      navigate('/login');
+      return;
+    }
+
+    navigate('/checkout');
+  };
 
   return (
     <main className="container py-4">
@@ -98,7 +112,7 @@ export default function Carrito() {
 
               <div className="d-flex justify-content-end gap-2">
                 <button className="btn btn-secondary" onClick={vaciar}>Limpiar</button>
-                <Link to="/checkout" className="btn btn-success">Comprar ahora</Link>
+                <Link to="/checkout" className="btn btn-success" onClick={irAlCheckout}>Comprar ahora</Link>
               </div>
             </>
           )}
@@ -106,5 +120,5 @@ export default function Carrito() {
 
       </div>
     </main>
-  )
+  );
 }

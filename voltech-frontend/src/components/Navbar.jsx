@@ -1,11 +1,25 @@
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { useCarrito } from '../context/CarritoContext'
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useCarrito } from '../context/CarritoContext';
 
 export default function Navbar() {
-  const { total } = useCarrito()
-  const [menuUsuario, setMenuUsuario] = useState(false)
-  const menu = () => { setMenuUsuario(!menuUsuario) }
+  const { total } = useCarrito();
+  const [menuUsuario, setMenuUsuario] = useState(false);
+  const menu = () => { setMenuUsuario(!menuUsuario); };
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const usuarioGuardado = localStorage.getItem('usuario');
+  const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
+
+  const cerrarSesion = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('usuario');
+    setMenuUsuario(false);
+    alert('Sesión cerrada correctamente');
+    navigate('/login');
+  };
 
   return (
     <header>
@@ -31,13 +45,25 @@ export default function Navbar() {
             <div>
               <button className="boton-usuario"
                 onClick={menu}
-              ><a className="icono-usuario" href="#" aria-label="Usuario"></a>
+              ><a className="icono-usuario" href="#" onClick={(e) => e.preventDefault()} aria-label="Usuario"></a>
               </button>
               {
                 menuUsuario && (
                   <ul className="menu-registro">
-                    <li><Link to="/login">Iniciar Sesión</Link></li>
-                    <li><Link to="/registro">Registrarse</Link></li>
+                    {usuario ? (
+                      <>
+                        <li><Link to="#" onClick={(e) => e.preventDefault()}>Hola, {usuario.nombre}</Link></li>
+                        {usuario.rol === 'administrador' && (
+                          <li><Link to="/admin" onClick={() => setMenuUsuario(false)}>Panel Admin</Link></li>
+                        )}
+                        <li><Link to="/login" onClick={cerrarSesion}>Cerrar Sesión</Link></li>
+                      </>
+                    ) : (
+                      <>
+                        <li><Link to="/login" onClick={() => setMenuUsuario(false)}>Iniciar Sesión</Link></li>
+                        <li><Link to="/registro" onClick={() => setMenuUsuario(false)}>Registrarse</Link></li>
+                      </>
+                    )}
                   </ul>
                 )
               }
@@ -50,5 +76,5 @@ export default function Navbar() {
         </ul>
       </nav>
     </header>
-  )
+  );
 }
