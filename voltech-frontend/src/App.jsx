@@ -23,43 +23,33 @@ import AdminDashboard from './views/AdminDashboard'
 function App() {
   return (
     <Routes>
-      {/* 
-        RUTAS DEL PANEL DE ADMINISTRACIÓN 
-        Aquí mapeamos el flujo del diagrama para el Admin.
-        Por ahora todas apuntan a AdminDashboard hasta que creemos cada vista individual.
-      */}
+
       <Route path="/admin">
         <Route index element={<AdminDashboard />} /> {/* HOME / DASHBOARD */}
         
-        {/* Órdenes */}
         <Route path="ordenes" element={<AdminDashboard />} />
         <Route path="ordenes/:id" element={<AdminDashboard />} />
 
-        {/* Productos */}
         <Route path="productos" element={<AdminDashboard />} />
         <Route path="productos/nuevo" element={<AdminDashboard />} />
         <Route path="productos/:id" element={<AdminDashboard />} />
         <Route path="productos/editar/:id" element={<AdminDashboard />} />
         <Route path="productos/criticos" element={<AdminDashboard />} />
 
-        {/* Categorías */}
         <Route path="categorias" element={<AdminDashboard />} />
         <Route path="categorias/nueva" element={<AdminDashboard />} />
         <Route path="categorias/editar/:id" element={<AdminDashboard />} />
 
-        {/* Usuarios */}
         <Route path="usuarios" element={<AdminDashboard />} />
         <Route path="usuarios/nuevo" element={<AdminDashboard />} />
         <Route path="usuarios/:id" element={<AdminDashboard />} />
         <Route path="usuarios/editar/:id" element={<AdminDashboard />} />
         <Route path="usuarios/:id/historial" element={<AdminDashboard />} />
 
-        {/* Reportes y Perfil */}
         <Route path="reportes" element={<AdminDashboard />} />
         <Route path="perfil" element={<AdminDashboard />} />
       </Route>
 
-      {/* RUTAS DE LA TIENDA PÚBLICA (Con Navbar y Footer) */}
       <Route
         path="*"
         element={
