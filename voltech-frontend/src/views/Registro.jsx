@@ -1,3 +1,8 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { creacionUsuario } from '../services/api'
+
+
 export default function Registro() {
   return (
     <main className="main-login">
