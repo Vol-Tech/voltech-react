@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import CarouselHome from '../components/CarouselHome'
 import { obtenerProductos } from '../services/api'
+import ProductCard from '../components/ProductCard'
 import { useCarrito } from '../context/CarritoContext'
 
 export default function Home() {
@@ -36,14 +37,7 @@ export default function Home() {
           </div>
         ) : (
           productosDestacados.map((producto) => (
-            <div className="producto-oferta" key={producto.id}>
-              <img src={producto.imagen_url} alt={producto.nombre} />
-              <a href="#">
-                <span className="nombre-producto">{producto.nombre}</span>
-              </a>
-              <p>${Number(producto.precio).toLocaleString('es-CL')}</p>
-              <button onClick={() => agregar(producto)}>Añadir</button>
-            </div>
+            <ProductCard key={producto.id} producto={producto} clase="producto" />
           ))
         )}
       </div>
