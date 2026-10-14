@@ -96,6 +96,11 @@ header {
   cursor: pointer;
 }
 
+.boton-usuario {
+  background: none;
+  border: none;
+}
+
 .icono-usuario::before {
   font-family: "bootstrap-icons";
   font-size: 1.5rem;
