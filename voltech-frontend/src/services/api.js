@@ -218,3 +218,44 @@ export const actualizarDireccionDeUsuario = async (id, datosDireccion) => {
     throw error;
   }
 };
+
+// endpoints de la api pedidos 'http://localhost:3000/api/pedidos'
+
+// GET
+export const obtenerPedidosUsuario = async (usuario_id) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/pedidos/usuario/${usuario_id}`);
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || `Error al obtener los pedidos del usuario ${usuario_id}`);
+    }
+
+    return resultado.data;
+  } catch (error) {
+    console.error(`Error en obtenerPedidosUsuario (${usuario_id}):`, error);
+    return [];
+  }
+};
+
+// POST
+export const creacionPedido = async (datosBoleta) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/pedidos`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datosBoleta),
+    });
+
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || 'Error al realizar el pedido');
+    }
+
+    return resultado.data;
+  } catch (error) {
+    console.error("Error en creacionPedido:", error);
+    throw error;
+  }
+};
