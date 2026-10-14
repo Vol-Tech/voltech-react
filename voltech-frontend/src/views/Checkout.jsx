@@ -1,89 +1,98 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useCarrito } from '../context/CarritoContext'
-import { creacionPedido, regiones_comunas } from '../services/api'
-import { guardarUltimaOrden } from '../services/ordenes'
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCarrito } from '../context/CarritoContext';
+import { creacionPedido, actualizarDireccionDeUsuario, regiones_comunas } from '../services/api';
+import { guardarUltimaOrden } from '../services/ordenes';
 
-const listaRegiones = Object.keys(regiones_comunas)
+const listaRegiones = Object.keys(regiones_comunas);
 
 export default function Checkout() {
-  const { items, total, vaciar } = useCarrito()
-  const navigate = useNavigate()
-  const [pagando, setPagando] = useState(false)
+  const { items, total, vaciar } = useCarrito();
+  const navigate = useNavigate();
+  const [pagando, setPagando] = useState(false);
+
+  const usuarioGuardado = localStorage.getItem('usuario');
+  const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
 
   const [datos, setDatos] = useState({
-    nombre: '',
-    apellidos: '',
-    correo: '',
-    calle: '',
-    departamento: '',
-    region: '',
-    comuna: '',
+    nombre: usuario?.nombre || '',
+    apellidos: usuario?.apellidos || '',
+    correo: usuario?.email || '',
+    calle: usuario?.calle || '',
+    departamento: usuario?.departamento || '',
+    region: usuario?.region || '',
+    comuna: usuario?.comuna || '',
     indicaciones: '',
-  })
+  });
 
-  const comunas = datos.region ? regiones_comunas[datos.region] : []
+  const comunas = datos.region ? regiones_comunas[datos.region] : [];
 
   function manejarCambio(e) {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     if (name === 'region') {
-      setDatos({ ...datos, region: value, comuna: '' })
+      setDatos({ ...datos, region: value, comuna: '' });
     } else {
-      setDatos({ ...datos, [name]: value })
+      setDatos({ ...datos, [name]: value });
     }
   }
 
   async function pagar(e) {
-    e.preventDefault()
-    setPagando(true)
+    e.preventDefault();
 
-    const numeroLocal = Date.now().toString().slice(-8)
+    if (!usuario || !usuario.id) {
+      alert('Debes iniciar sesión para realizar la compra');
+      navigate('/login');
+      return;
+    }
+
+    setPagando(true);
+
+    const numeroLocal = Date.now().toString().slice(-8);
     const ordenBase = {
       numero: numeroLocal,
       codigo: `ORDER${numeroLocal.slice(-5)}`,
       cliente: datos,
       items,
       total,
-    }
+    };
+
+    const datosDireccion = {
+      calle: datos.calle,
+      comuna: datos.comuna,
+      region: datos.region,
+      departamento: datos.departamento,
+    };
 
     const datosBoleta = {
+      usuario_id: usuario.id,
+      datosDireccion: datosDireccion,
       cliente: datos,
-      items: items.map((item) => ({ producto_id: item.id, cantidad: item.cantidad })),
+      carrito: items.map((item) => ({ producto_id: item.id, cantidad: item.cantidad, precio_unitario: item.precio })),
       total: total,
-    }
+    };
 
     try {
-      const respuesta = await creacionPedido(datosBoleta)
+      await actualizarDireccionDeUsuario(usuario.id, datosDireccion);
+
+      const respuesta = await creacionPedido(datosBoleta);
+
+      const usuarioActualizado = { ...usuario, ...datosDireccion };
+      localStorage.setItem('usuario', JSON.stringify(usuarioActualizado));
 
       guardarUltimaOrden({
         ...ordenBase,
         numero: (respuesta && (respuesta.numero || respuesta.id)) || numeroLocal,
         estado: 'exitoso',
-      })
-      vaciar()
-      navigate('/compra-exitosa')
-    } catch (error) {
-      console.error('No se pudo realizar el pago:', error)
-      guardarUltimaOrden({ ...ordenBase, estado: 'error' })
-      setPagando(false)
-      navigate('/pago-error')
-    }
+      });
+      vaciar();
 
-    try {
-      const respuesta = await creacionPedido(datosBoleta)
-
-      guardarUltimaOrden({
-        ...ordenBase,
-        numero: (respuesta && (respuesta.numero || respuesta.id)) || numeroLocal,
-        estado: 'exitoso',
-      })
-      vaciar()
-      navigate('/compra-exitosa')
+      alert('¡Compra realizada con éxito!');
+      navigate('/');
     } catch (error) {
-      console.error('No se pudo realizar el pago:', error)
-      guardarUltimaOrden({ ...ordenBase, estado: 'error' })
-      setPagando(false)
-      navigate('/pago-error')
+      console.error('No se pudo realizar el pago:', error);
+      guardarUltimaOrden({ ...ordenBase, estado: 'error' });
+      setPagando(false);
+      alert('Error al procesar el pago: ' + (error.message || 'Intente nuevamente'));
     }
   }
 
@@ -93,7 +102,7 @@ export default function Checkout() {
         <h2>Tu carrito está vacío</h2>
         <Link to="/categorias" className="btn btn-outline-primary mt-3">Ver categorías</Link>
       </main>
-    )
+    );
   }
 
   return (
@@ -207,5 +216,5 @@ export default function Checkout() {
         </div>
       </div>
     </main>
-  )
+  );
 }
