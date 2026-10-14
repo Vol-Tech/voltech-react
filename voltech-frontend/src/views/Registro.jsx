@@ -108,6 +108,12 @@ export default function Registro() {
         </div>
 
         <button type="submit">Registrar</button>
+
+        {msgError && (
+          <div className="alert alert-danger py-2 w-100 text-center text-danger fw-bold" role="alert">
+            {msgError}
+          </div>
+        )}
       </form>
 
     </main>
