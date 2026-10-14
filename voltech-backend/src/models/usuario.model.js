@@ -22,11 +22,11 @@ const obtenerUsuarioEmail = async (email) => {
 };
 
 const crearUsuario = async (usuario) => {
-    const { nombre, apellidos, email, contrasena, telefono, region, comuna } = usuario;
+    const { run, nombre, apellidos, email, contrasena, telefono, region, comuna } = usuario;
 
     const query = `
-        INSERT INTO usuarios (nombre, apellidos, email, contrasena, telefono, region, comuna)
-        VALUES ('${nombre}', '${apellidos}', '${email}', '${contrasena}', '${telefono || ''}', '${region || ''}', '${comuna || ''}')
+        INSERT INTO usuarios (run, nombre, apellidos, email, contrasena, telefono, region, comuna)
+        VALUES ('${run || ''}', '${nombre}', '${apellidos}', '${email}', '${contrasena}', '${telefono || ''}', '${region || ''}', '${comuna || ''}')
         RETURNING *;
     `;
 

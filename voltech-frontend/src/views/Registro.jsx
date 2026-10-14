@@ -41,6 +41,7 @@ export default function Registro() {
     const direccionCompleta = datosForm.comuna && datosForm.region;
 
     const nuevoUsuario = {
+      run: datosForm.run.trim(),
       nombre: datosForm.nombre.trim(),
       apellidos: datosForm.apellido.trim(),
       email: datosForm.email.trim(),
