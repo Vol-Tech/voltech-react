@@ -2,8 +2,53 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { creacionUsuario } from '../services/api'
 
-
 export default function Registro() {
+  const navigate = useNavigate();
+
+  const [ datosForm, setDatosForm ] = useState({
+    run: '',
+    nombre: '',
+    apellido: '',
+    email: '',
+    confirmarEmail: '',
+    contrasena: '',
+    confirmarContrasena: '',
+    region: '',
+    comuna: ''
+  });
+
+  const [ msgError, setMsgError ] = useState('');
+  const [ cargando, setCargando ] = useState(false);
+
+
+  const registrar = async (e) => {
+    e.preventDefault();
+    setMsgError('');
+
+    if (datosForm.email.trim() !== datosForm.confirmarEmail.trim()) {
+      setMsgError('Los email no coinciden');
+      return;
+    }
+
+    if (datosForm.contrasena !== datosForm.confirmarContrasena) {
+      setMsgError('Las contraseñas no coinciden');
+      return;
+    }
+
+    setCargando(true);
+
+    const direccionCompleta = datosForm.comuna && datosForm.region;
+
+    const nuevoUsuario = {
+      run: datosForm.run.trim(),
+      nombre: `${datosForm.nombre.trim()} ${formData.apellido.trim()}`.trim(),
+      email: datosForm.email.trim(),
+      contrasena: datosForm.contrasena,
+      telefono: datosForm.telefono.trim(),
+      direccion: direccionCompleta
+    }
+  };
+
   return (
     <main className="main-login">
 
