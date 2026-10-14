@@ -207,24 +207,25 @@ export const creacionUsuario = async (nuevoUsuario) => {
 export const actualizarDireccionDeUsuario = async (id, datosDireccion) => {
   try {
     const respuesta = await fetch(`${API_URL}/usuarios/${id}/direccion`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datosActualizados),
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datosDireccion),
     });
 
     const resultado = await respuesta.json();
 
-    if (!respuesta.ok || !resultado.exito) {
-      throw new Error(resultado.mensaje || `Error al actualizar el usuario de id ${id}`);
+    if (!respuesta.ok) {
+      throw new Error(resultado.mensaje || 'Error al actualizar la dirección');
     }
 
-    return resultado.data;
+    return resultado.data || resultado;
   } catch (error) {
-    console.error(`Error en actualizarDireccionDeUsuario (${id}):`, error);
+    console.error(`Error en actualizarDireccionDeUsuario (${id}):`, error.message);
     throw error;
   }
 };
-
 // endpoints de la api pedidos 'http://localhost:3000/api/pedidos'
 
 // GET
