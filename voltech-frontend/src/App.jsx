@@ -17,32 +17,68 @@ import BlogCableTipoC from './views/BlogCableTipoC'
 import BlogCableVga from './views/BlogCableVga'
 import BlogMouse from './views/BlogMouse'
 
+// Vista del Panel de Administración
+import AdminDashboard from './views/AdminDashboard'
+
 function App() {
   return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
+    <Routes>
 
-        <Route path="/nosotros" element={<Nosotros />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/contacto" element={<Contacto />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Registro />} />
+      <Route path="/admin">
+        <Route index element={<AdminDashboard />} /> {/* HOME / DASHBOARD */}
+        
+        <Route path="ordenes" element={<AdminDashboard />} />
+        <Route path="ordenes/:id" element={<AdminDashboard />} />
 
-        <Route path="/categorias" element={<Categorias />} />
-        <Route path="/categorias/:id" element={<Categorias />} />
-        <Route path="/categorias/:categoriaId/:productoId" element={<DetalleProducto />} />
+        <Route path="productos" element={<AdminDashboard />} />
+        <Route path="productos/nuevo" element={<AdminDashboard />} />
+        <Route path="productos/:id" element={<AdminDashboard />} />
+        <Route path="productos/editar/:id" element={<AdminDashboard />} />
+        <Route path="productos/criticos" element={<AdminDashboard />} />
 
-        <Route path="/carrito" element={<Carrito />} />
+        <Route path="categorias" element={<AdminDashboard />} />
+        <Route path="categorias/nueva" element={<AdminDashboard />} />
+        <Route path="categorias/editar/:id" element={<AdminDashboard />} />
 
-        <Route path="/blogs/monitor-gamer" element={<BlogMonitor />} />
-        <Route path="/blogs/cable-tipo-c" element={<BlogCableTipoC />} />
-        <Route path="/blogs/cable-vga" element={<BlogCableVga />} />
-        <Route path="/blogs/mouse-gamer" element={<BlogMouse />} />
-      </Routes>
-      <Footer />
-    </>
+        <Route path="usuarios" element={<AdminDashboard />} />
+        <Route path="usuarios/nuevo" element={<AdminDashboard />} />
+        <Route path="usuarios/:id" element={<AdminDashboard />} />
+        <Route path="usuarios/editar/:id" element={<AdminDashboard />} />
+        <Route path="usuarios/:id/historial" element={<AdminDashboard />} />
+
+        <Route path="reportes" element={<AdminDashboard />} />
+        <Route path="perfil" element={<AdminDashboard />} />
+      </Route>
+
+      <Route
+        path="*"
+        element={
+          <>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/nosotros" element={<Nosotros />} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/contacto" element={<Contacto />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/registro" element={<Registro />} />
+
+              <Route path="/categorias" element={<Categorias />} />
+              <Route path="/categorias/:id" element={<Categorias />} />
+              <Route path="/categorias/:categoriaId/:productoId" element={<DetalleProducto />} />
+
+              <Route path="/carrito" element={<Carrito />} />
+
+              <Route path="/blogs/monitor-gamer" element={<BlogMonitor />} />
+              <Route path="/blogs/cable-tipo-c" element={<BlogCableTipoC />} />
+              <Route path="/blogs/cable-vga" element={<BlogCableVga />} />
+              <Route path="/blogs/mouse-gamer" element={<BlogMouse />} />
+            </Routes>
+            <Footer />
+          </>
+        }
+      />
+    </Routes>
   )
 }
 
