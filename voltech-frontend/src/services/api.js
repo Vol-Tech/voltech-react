@@ -115,10 +115,29 @@ export const borrarProducto = async (id) => {
     if (!respuesta.ok || !resultado.exito) {
       throw new Error(resultado.mensaje || `Error al eliminar el producto ${id}`);
     }
-    
+
     return resultado.data;
   } catch (error) {
     console.error(`Error en borrarProducto (${id}):`, error);
     throw error;
   }
 };
+
+// endpoints de la api usuarios 'http://localhost:3000/api/productos'
+
+export const obtenerTodoUsuarios = async () => {
+  try {
+    const respuesta = await fetch(`${API_URL}/usuarios`);
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok || !resultado.exito) {
+      throw new Error(resultado.mensaje || 'Error al obtener los usuarios');
+    }
+
+    return resultado.data; 
+  } catch (error) {
+    console.error("Error en obtenerProductos:", error);
+    return [];
+  }
+};
+
