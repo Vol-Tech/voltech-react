@@ -1,12 +1,18 @@
 const API_URL = 'http://localhost:3000/api';
 
-// array de categorias para el front
+// colecciones auxiliares para el front
 
 export const categorias = [
   { id: 'cables', nombre: 'Cables', imagen: '/img/Cable tipo C.png' },
   { id: 'mouse', nombre: 'Mouse', imagen: '/img/Mouse Gamer.png' },
   { id: 'monitores', nombre: 'Monitores', imagen: '/img/Monitor Gamer.png' },
 ];
+
+export const regiones_comunas = {
+  'Metropolitana': ['Santiago', 'Puente Alto', 'Maipú', 'La Florida', 'Providencia', 'Las Condes', 'San Bernardo'],
+  'Valparaíso': ['Valparaíso', 'Viña del Mar', 'Quilpué', 'Villa Alemana', 'San Antonio'],
+  'Biobío': ['Concepción', 'Talcahuano', 'Chiguayante', 'Los Ángeles', 'Coronel']
+};
 
 // endpoints de la api productos 'http://localhost:3000/api/productos'
 
