@@ -3,6 +3,7 @@ import ListadoProductos from './ListadoProductos';
 import ListadoCategorias from './ListadoCategorias';
 import ListadoOrdenes from './ListadoOrdenes';
 import ListadoUsuarios from './ListadoUsuarios';
+import Reportes from './Reportes';
 
 const AdminDashboard = () => {
   // Estado para controlar qué sección del admin está activa
@@ -192,8 +193,11 @@ const AdminDashboard = () => {
           {/* SECCIÓN 5: USUARIOS */}
           {seccionActual === 'usuarios' && <ListadoUsuarios />}
 
-          {/* SECCIÓN TEMPORAL PARA OTRAS PÁGINAS (Reportes, Perfil) */}
-          {seccionActual === 'reportes' || seccionActual === 'perfil' ? (
+          {/* SECCIÓN 6: REPORTES */}
+          {seccionActual === 'reportes' && <Reportes />}
+
+          {/* SECCIÓN TEMPORAL PARA PERFIL */}
+          {seccionActual === 'perfil' && (
             <div className="bg-white p-5 rounded shadow-sm text-center">
               <h3 className="text-capitalize fw-bold text-dark">Módulo de {seccionActual}</h3>
               <p className="text-muted">Vista en desarrollo para la siguiente entrega.</p>
@@ -201,7 +205,7 @@ const AdminDashboard = () => {
                 Volver al Dashboard
               </button>
             </div>
-          ) : null}
+          )}
 
         </div>
       </div>
